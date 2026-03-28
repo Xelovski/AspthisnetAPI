@@ -1,0 +1,41 @@
+﻿@using Common.DTO
+@using WebApplication2.Datalayer.Entities
+@model List<UserDTO>
+<a href="@Url.Action("MakeUser","Home")"class="butto4">maker</a>
+<table class="table">
+    <thead>
+        <td>Id</td>
+        <td>Naame</td>
+        <td>Email</td>
+        <td>Edit</td>
+        <td>delete</td>
+    </thead>
+    <tbody>
+        @foreach(var user in Model){
+            <tr>
+                <td>@user.Id</td>
+                <td>
+                    <a href="@Url.Action("User","Home",new{userPublicId=user.PublicId})">
+                        @user.Name
+                    </a>
+                </td>
+                <td>@user.Emil</td>
+                <td>
+                    <a href="@Url.Action("Update","Home",new{userPublicId=user.PublicId})"class="butto4">
+                        Change
+                    </a>
+                </td>
+                <td>
+                    <input type="checkbox" name=@user.Id id=@user.PublicId value=@user.PublicId />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- -->
+<input type="hidden" id="sus" value="@(ViewBag.UserList)" />
+<button onclick="Del()">delete selected</button>
+<form action="Users" method="post">
+    <input type="hidden" name="name" id="here" value=[""] /><!-- here goes what to delete -->
+    <button style="display:none;" id="suser">Confirm deletion</button>
+</form>

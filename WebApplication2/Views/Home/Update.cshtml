@@ -1,0 +1,10 @@
+﻿@model UpdateModel
+
+<form action="Update" method="post">
+	<input type="hidden" name="PublicId" value=@Model.PublicId />
+	<br />
+	<label asp-for="Email">emil</label>
+	<input type="text" name="Email" value=@Model.Email />
+	<input type="submit" value="CLICK" />
+</form>
+

@@ -1,0 +1,22 @@
+﻿@model Useri 
+<!--model List<Useri> -->
+
+@foreach(Useri user in ViewBag.X){
+	<h3>Hello: @user.Name</h3>
+	<h4>Email: @user.Email</h4>
+	<h4>City: @user.City</h4>
+	<h4>Age: @user.Age</h4>
+	<h4>Username: @user.Uname</h4>
+	<h4>Password: @user.Pass</h4>
+	<h4>Premety: </h4>
+	@foreach (var q in user.Val){
+		string[] words = q.Split(',');
+		foreach(var w in words){
+			<p>@w</p> 
+		}
+	}
+	<br /> 
+}
+
+
+

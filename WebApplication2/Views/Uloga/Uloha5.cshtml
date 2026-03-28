@@ -1,0 +1,13 @@
+﻿@model List<Useri>
+
+
+<div class="box">
+
+	@foreach (var user in Model)
+	{
+		<div class="shadow pad15 cent op">
+			<img src="/img/Wallpaper.jpg" alt="profile img" class="round small" />
+			<partial name="_userco" model="user"></partial>
+		</div>
+	}
+</div>

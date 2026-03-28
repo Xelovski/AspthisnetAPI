@@ -1,0 +1,33 @@
+﻿@model Useri
+
+<form asp-controller="Uloga" asp-action="U10">
+	<label for="Name">name</label>
+	<input type="text" name="Name"  /><br />
+
+	<label for="Email">email</label>
+	<input type="text" name="Email"  /> <br />
+
+	<label for="City">city</label>
+	<input type="text" name="City"  /> <br />
+
+	<label for="Pass">pass</label>
+	<input type="text" name="Pass"  /> <br />
+
+	<label for="Uname">Uname</label>
+	<input type="text" name="Uname"  /> <br />
+
+	<label for="Age">age</label>
+	<input type="number" name="Age"  />
+
+	<input type="hidden" id="predmety" name="Val" />
+	<input type="submit" value="submit" />
+</form>
+<br />
+<input id="predmet" />
+<button id="add" onclick="upd()">press to upload ****</button>
+<p id="q4"></p>
+
+
+
+
+

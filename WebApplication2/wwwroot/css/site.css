@@ -1,0 +1,121 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+/*-------uloha1-----*/
+
+.cent{
+    text-align:center;
+}
+.butto {
+    padding:4px;
+    text-align: center;
+    background-color: blue;
+    color:antiquewhite;
+}
+.butto:hover{
+    background-color:red;
+}
+/*-----uloha2------*/
+.shadow{
+    box-shadow:black 5px 5px;
+}
+.pad15{
+    padding:15px;
+}
+.round{
+    border-radius:150px;
+}
+.small{
+    width:170px;
+}
+.butto2 {
+    padding: 7px;
+    border:1px solid black; 
+    border-radius:10px;
+    text-align: center;
+    background-color: antiquewhite;
+}
+.butto2:hover{
+    background-color:aquamarine;
+}
+
+/*---u3----*/
+.box{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+}
+.op{
+    text-align:center;
+    width:1fr;
+    margin:5px;
+}
+@media(max-width:780px){
+    .box {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+@media(max-width:480px) {
+    .box {
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+/*---u4---*/
+.tab {
+    border-collapse: collapse;
+    text-align:left;
+    width:90%;
+    margin:40px;
+}
+.cole{
+    background-color:aquamarine;
+    color:blueviolet;
+}
+.tr{
+    border-bottom:1px solid black;
+}
+.tr:hover{background-color:bisque;}
+.bor{border:2px solid black;}
+.borR{border-radius:20px;}
+.mar25{margin:25px;}
+
+.butto3 {
+    padding: 7px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    background-color: red;
+}
+
+.butto3:hover {
+    background-color: palevioletred;
+}
+.butto4 {
+    padding: 7px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    background-color: lightblue;
+}
+
+.butto4:hover {
+    background-color: lightcoral;
+}

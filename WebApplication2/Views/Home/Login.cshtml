@@ -1,0 +1,23 @@
+﻿<form action="Login" method="post">
+	<input type="text" name="name" value="" placeholder="Stef" />
+	<input type="password" name="pass" value="" placeholder="4440" />
+	<input type="submit" name="q" value="Log in" />
+</form>
+@if(ViewBag.Name){
+	<br />
+
+
+	<a href="@Url.Action("Reset","Home",new{})" class="butto4">
+		Log of
+	</a>
+	<a href="@Url.Action("Ch","Home",new{})" class="butto4">@* CHANGe PASS *@
+		Change
+	</a>
+}
+@if (!ViewBag.Name){
+	<br />
+
+	<a href="@Url.Action("Rs","Home",new{})" class="butto4">@* Rwset PASS *@
+		Reset
+	</a>
+}

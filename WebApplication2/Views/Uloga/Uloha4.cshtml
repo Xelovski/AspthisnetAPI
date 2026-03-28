@@ -1,0 +1,17 @@
+﻿@model List<Useri>
+<h1>users</h1>
+<table class="tab">
+    <tr class="cole tr">
+        <th>Name</th>
+        <th>Mail</th>
+        <th>username</th>
+    </tr>
+
+@foreach(var user in Model){
+    <tr class="tr">
+        <td>@user.Name</td>
+        <td>@user.Email</td>
+        <td>@user.Uname</td>
+    </tr>
+}
+</table>
