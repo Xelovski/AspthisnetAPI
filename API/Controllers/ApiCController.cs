@@ -16,13 +16,14 @@ namespace WebApplication2.Controllers
         {
             _userService = userService;
         }
-        [HttpGet(Name ="GetUsers")]
-        [SwaggerOperation(Summary = "Get all users")]
+        [HttpGet]
+        [SwaggerOperation(Summary = "Get all users", Description = "Returns all registered users from the database", Tags = new[] { "Get" })]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _userService.GetAllAsync());
         }
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get user", Description = "Returns 1 user from the database", Tags = new[] { "Get" })]
         public async Task<IActionResult> GetById(int id)
         {
             if (id == 0)
@@ -36,7 +37,8 @@ namespace WebApplication2.Controllers
             }
             return Ok(o);
         }
-        [HttpPost(Name ="AddUser")]
+        [HttpPost]
+        [SwaggerOperation(Summary = "Create user", Description = "Creates a user and sends it to database", Tags = new[] { "Post" })]
         public async Task<IActionResult> CreateAsync([FromBody] cREATEuSERModel us)
         {
             if (us == null)
@@ -62,6 +64,7 @@ namespace WebApplication2.Controllers
             return Ok(await _userService.Register(l));
         }
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Change user", Description = "Changes email of a specified user from the database", Tags = new[] { "Put" })]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdateModel model)
         {
             if (model == null || id == 0)
@@ -76,6 +79,7 @@ namespace WebApplication2.Controllers
             return Ok(updated);
         }
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Deletes a user", Description = "Deletes a specified user from the database", Tags = new[] { "Delete" })]
         public async Task<IActionResult> DeleteAsync(int id = 0)
         {
             if (id == 0)
@@ -89,6 +93,7 @@ namespace WebApplication2.Controllers
             return Ok(deleted);
         }
         [HttpPost("login")]//Login
+        [SwaggerOperation(Summary = "Log in as a user", Description = "Tries to logs u in as a user", Tags = new[] { "Post" })]
         public async Task<IActionResult> LoginAsync([FromBody] LoginDTO login)
         {
             if (login == null)
