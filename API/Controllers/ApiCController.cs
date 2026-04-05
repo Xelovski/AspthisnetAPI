@@ -2,6 +2,7 @@
 using Common.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Text.Json;
 using WebApplication2.Models;
 
 namespace WebApplication2.Controllers
@@ -110,5 +111,34 @@ namespace WebApplication2.Controllers
                 return Ok(q);
             }
         }
+
+
+        private string filePath = Path.Combine(Directory.GetCurrentDirectory(), "storecontent.json");
+        [HttpGet("storecontent")]
+        [SwaggerOperation(Summary = "Get store", Description = "Returns storecontent", Tags = new[] { "Store" })]
+        public async Task<IActionResult> GetStore()
+        {
+            var json = System.IO.File.ReadAllText(filePath);
+            var data = JsonSerializer.Deserialize<object>(json);
+            return Ok(data);
+        }
+        [HttpPost("storecontent")]
+        [SwaggerOperation(Summary = "Replace store", Description = "Changes store", Tags = new[] { "Store" })]
+        public async Task<IActionResult> ChangeStore([FromBody] Item newItem)
+        {
+            var json = System.IO.File.ReadAllText(filePath);
+            var data = JsonSerializer.Deserialize<List<Item>>(json);
+
+            data.Add(newItem); // 👈 modify
+
+            var updatedJson = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(filePath, updatedJson); // 👈 save
+
+            return Ok(data);
+        }
+    }
+    public class Item
+    {
+        public string Name { get; set; }
     }
 }
