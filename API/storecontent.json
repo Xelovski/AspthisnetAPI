@@ -1,7 +1,17 @@
 [
-  { "name": "Soup" },
-  { "name": "The_picar" },
-  { "name": "Keyboard" },
-  { "name": "Guitar" },
-  { "name": "9mil_(gun)" }
+  {
+    "Name": "Soup"
+  },
+  {
+    "Name": "The_picar"
+  },
+  {
+    "Name": "Keyboard"
+  },
+  {
+    "Name": "Guitar"
+  },
+  {
+    "Name": "9mil_(gun)"
+  }
 ]

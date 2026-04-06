@@ -93,8 +93,13 @@ namespace WebApplication2.Controllers
                 return NotFound("The user does not exist");
             return Ok(deleted);
         }
+
+        /// <summary>
+        /// login
+        /// </summary>
+        private string filePath2 = Path.Combine(Directory.GetCurrentDirectory(), "loggedas.json");
         [HttpPost("login")]//Login
-        [SwaggerOperation(Summary = "Log in as a user", Description = "Tries to logs u in as a user", Tags = new[] { "Post" })]
+        [SwaggerOperation(Summary = "Log in as a user", Description = "Tries to logs u in as a user", Tags = new[] { "Log?" })]
         public async Task<IActionResult> LoginAsync([FromBody] LoginDTO login)
         {
             if (login == null)
@@ -108,33 +113,59 @@ namespace WebApplication2.Controllers
                 {
                     return BadRequest("Wrong name or password");
                 }
+                var updatedJson = JsonSerializer.Serialize(
+                    login.Name,
+                    new JsonSerializerOptions { WriteIndented = true }
+                );
+
+                System.IO.File.WriteAllText(filePath2, updatedJson);
                 return Ok(q);
             }
         }
+        [HttpGet("login")]
+        [SwaggerOperation(Summary = "Logged in as?", Description = "Gives u a name of whom u logged as", Tags = new[] { "Log?" })]
+        public async Task<IActionResult> LoggedAs()
+        {
+            var json = System.IO.File.ReadAllText(filePath2);
+            var data = JsonSerializer.Deserialize<object>(json) ?? new List<Item>();
+            return Ok(data);
+        }
+        [HttpPost("logof")]
+        [SwaggerOperation(Summary = "Logs u off", Description = "What? Idk man...", Tags = new[] { "Log?" })]
+        public async Task<IActionResult> LogOf()
+        {
+            var updatedJson = JsonSerializer.Serialize(
+                "",
+                new JsonSerializerOptions { WriteIndented = true }
+            );
+            System.IO.File.WriteAllText(filePath2, updatedJson);
+            return Ok(true);
+        }
 
-
+        /// <summary>
+        /// other
+        /// </summary>
         private string filePath = Path.Combine(Directory.GetCurrentDirectory(), "storecontent.json");
         [HttpGet("storecontent")]
         [SwaggerOperation(Summary = "Get store", Description = "Returns storecontent", Tags = new[] { "Store" })]
         public async Task<IActionResult> GetStore()
         {
             var json = System.IO.File.ReadAllText(filePath);
-            var data = JsonSerializer.Deserialize<object>(json);
+            var data = JsonSerializer.Deserialize<object>(json) ?? new List<Item>();
             return Ok(data);
         }
         [HttpPost("storecontent")]
         [SwaggerOperation(Summary = "Replace store", Description = "Changes store", Tags = new[] { "Store" })]
-        public async Task<IActionResult> ChangeStore([FromBody] Item newItem)
+        public async Task<IActionResult> ChangeStore([FromBody] List<Item> newData)
         {
-            var json = System.IO.File.ReadAllText(filePath);
-            var data = JsonSerializer.Deserialize<List<Item>>(json);
+            var updatedJson = JsonSerializer.Serialize(
+                newData,
+                new JsonSerializerOptions { WriteIndented = true }
+            );
 
-            data.Add(newItem); // 👈 modify
+            System.IO.File.WriteAllText(filePath, updatedJson);
 
-            var updatedJson = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
-            System.IO.File.WriteAllText(filePath, updatedJson); // 👈 save
-
-            return Ok(data);
+            return Ok(true);
         }
     }
     public class Item
