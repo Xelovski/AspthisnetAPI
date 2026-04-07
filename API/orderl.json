@@ -1,0 +1,12 @@
+[
+  {
+    "Id": 1,
+    "Username": "john123",
+    "Items": "burger, fries, cola, 9mil, coke, coco-cola"
+  },
+  {
+    "Id": 2,
+    "Username": "a",
+    "Items": "9mil"
+  }
+]

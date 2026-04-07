@@ -172,10 +172,74 @@ namespace WebApplication2.Controllers
         /// <summary>
         /// Orders
         /// </summary>
-        // private string OrderL = Path.Combine(Directory.GetCurrentDirectory(), "----------.json"); //Orderlist
-        //[HttpGet]  - get all
-        //[HttpPost]  -add new
-        //[HttpDelete] -delete specified
+        private string OrderL = Path.Combine(Directory.GetCurrentDirectory(), "orderl.json");
+        private List<Order> ReadOrders()
+        {
+            if (!System.IO.File.Exists(OrderL))
+                return new List<Order>();
+            var json = System.IO.File.ReadAllText(OrderL);
+            return string.IsNullOrEmpty(json) ? new List<Order>(): JsonSerializer.Deserialize<List<Order>>(json);
+        }
+        private void WriteOrders(List<Order> orders)
+        {
+            var json = JsonSerializer.Serialize(orders, new JsonSerializerOptions { WriteIndented = true });
+            System.IO.File.WriteAllText(OrderL, json);
+        }
+
+        [HttpGet("order")]
+        [SwaggerOperation(Summary = "Get all orders", Description = "Returns all curent orders", Tags = new[] { "Orders" })]
+        public IActionResult GetOrders()
+        {
+            var orders = ReadOrders();
+            return Ok(orders);
+        }
+
+        [HttpPost("order")]
+        [SwaggerOperation(Summary = "Add order", Description = "Adds 1 order", Tags = new[] { "Orders" })]
+        public IActionResult AddOrder([FromBody] Order newOrder)
+        {
+            if (string.IsNullOrWhiteSpace(newOrder.Username) || string.IsNullOrWhiteSpace(newOrder.Items)){
+                return BadRequest("Username and Items are required.");
+            }
+            var orders = ReadOrders();
+            var username = newOrder.Username.Trim();
+            var existingOrder = orders
+                .FirstOrDefault(o => o.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+
+            if (existingOrder != null){
+                existingOrder.Items += ", " + newOrder.Items.Trim();
+            }
+            else{
+                newOrder.Id = orders.Count > 0 ? orders.Max(o => o.Id) + 1 : 1;
+                newOrder.Username = username;
+                newOrder.Items = newOrder.Items.Trim();
+                orders.Add(newOrder);
+            }
+            WriteOrders(orders);
+            return Ok(orders);
+        }
+
+        [SwaggerOperation(Summary = "Delete order", Description = "Deletes specified order", Tags = new[] { "Orders" })]
+        [HttpDelete("order/{id}")]
+        public IActionResult DeleteOrder(int id)
+        {
+            var orders = ReadOrders();
+            var order = orders.FirstOrDefault(o => o.Id == id);
+
+            if (order == null)
+                return NotFound("Order does not exist/found");
+
+            orders.Remove(order);
+            WriteOrders(orders);
+            return Ok(order);
+        }
+    }
+    //models
+    public class Order
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Items { get; set; } //"burger, fries, cola..."
     }
     public class Item
     {
