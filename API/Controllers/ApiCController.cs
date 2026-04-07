@@ -73,6 +73,7 @@ namespace WebApplication2.Controllers
                 return BadRequest("Something is missing. . .");
             }
             var o = await _userService.GetByIdAsync(id);
+            if (o == null) { return NotFound("User not exist"); }
             var user = new UserDTO() { Id = id, Name = o.Name, PublicId = o.PublicId, Emil = model.Email };
             var updated = await _userService.UpdateAsync(user);
             if (!updated)
@@ -88,7 +89,8 @@ namespace WebApplication2.Controllers
                 return BadRequest("User of ID 0 does not exist (or if not given)");
             }
             var o = await _userService.GetByIdAsync(id);
-            var deleted = await _userService.DeleteAsync(o.PublicId);
+            if (o == null) { return NotFound("User not exist"); }
+            bool deleted = await _userService.DeleteAsync(o.PublicId);
             if (!deleted)
                 return NotFound("The user does not exist");
             return Ok(deleted);
@@ -170,6 +172,6 @@ namespace WebApplication2.Controllers
     }
     public class Item
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }
