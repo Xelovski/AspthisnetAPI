@@ -46,6 +46,7 @@ namespace WebApplication2.Controllers
             {
                 return BadRequest("Missing");
             }
+            //Console.WriteLine(us);
             var ot = 0; var q = new UserDTO();
             var userList = await _userService.GetAllAsync();
             foreach (var user in userList) { if (ot < user.Id) { ot = user.Id; } }
