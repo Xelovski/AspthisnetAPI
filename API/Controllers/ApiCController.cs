@@ -99,7 +99,7 @@ namespace WebApplication2.Controllers
         /// <summary>
         /// login
         /// </summary>
-        private string filePath2 = Path.Combine(Directory.GetCurrentDirectory(), "loggedas.json");
+        private string loggedas = Path.Combine(Directory.GetCurrentDirectory(), "loggedas.json");
         [HttpPost("login")]//Login
         [SwaggerOperation(Summary = "Log in as a user", Description = "Tries to logs u in as a user", Tags = new[] { "Log?" })]
         public async Task<IActionResult> LoginAsync([FromBody] LoginDTO login)
@@ -120,7 +120,7 @@ namespace WebApplication2.Controllers
                     new JsonSerializerOptions { WriteIndented = true }
                 );
 
-                System.IO.File.WriteAllText(filePath2, updatedJson);
+                System.IO.File.WriteAllText(loggedas, updatedJson);
                 return Ok(q);
             }
         }
@@ -128,7 +128,7 @@ namespace WebApplication2.Controllers
         [SwaggerOperation(Summary = "Logged in as?", Description = "Gives u a name of whom u logged as", Tags = new[] { "Log?" })]
         public async Task<IActionResult> LoggedAs()
         {
-            var json = System.IO.File.ReadAllText(filePath2);
+            var json = System.IO.File.ReadAllText(loggedas);
             var data = JsonSerializer.Deserialize<object>(json) ?? new List<Item>();
             return Ok(data);
         }
@@ -140,19 +140,19 @@ namespace WebApplication2.Controllers
                 "",
                 new JsonSerializerOptions { WriteIndented = true }
             );
-            System.IO.File.WriteAllText(filePath2, updatedJson);
+            System.IO.File.WriteAllText(loggedas, updatedJson);
             return Ok(true);
         }
 
         /// <summary>
-        /// other
+        /// store
         /// </summary>
-        private string filePath = Path.Combine(Directory.GetCurrentDirectory(), "storecontent.json");
+        private string storeC = Path.Combine(Directory.GetCurrentDirectory(), "storecontent.json");
         [HttpGet("storecontent")]
         [SwaggerOperation(Summary = "Get store", Description = "Returns storecontent", Tags = new[] { "Store" })]
         public async Task<IActionResult> GetStore()
         {
-            var json = System.IO.File.ReadAllText(filePath);
+            var json = System.IO.File.ReadAllText(storeC);
             var data = JsonSerializer.Deserialize<object>(json) ?? new List<Item>();
             return Ok(data);
         }
@@ -165,10 +165,17 @@ namespace WebApplication2.Controllers
                 new JsonSerializerOptions { WriteIndented = true }
             );
 
-            System.IO.File.WriteAllText(filePath, updatedJson);
+            System.IO.File.WriteAllText(storeC, updatedJson);
 
             return Ok(true);
         }
+        /// <summary>
+        /// Orders
+        /// </summary>
+        // private string OrderL = Path.Combine(Directory.GetCurrentDirectory(), "----------.json"); //Orderlist
+        //[HttpGet]  - get all
+        //[HttpPost]  -add new
+        //[HttpDelete] -delete specified
     }
     public class Item
     {
