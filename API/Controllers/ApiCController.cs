@@ -18,13 +18,13 @@ namespace WebApplication2.Controllers
             _userService = userService;
         }
         [HttpGet]
-        [SwaggerOperation(Summary = "Get all users", Description = "Returns all registered users from the database", Tags = new[] { "Get" })]
+        [SwaggerOperation(Summary = "Get all users", Description = "Returns all registered users from the database", Tags = new[] { "Users" })]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _userService.GetAllAsync());
         }
         [HttpGet("{id}")]
-        [SwaggerOperation(Summary = "Get user", Description = "Returns 1 user from the database", Tags = new[] { "Get" })]
+        [SwaggerOperation(Summary = "Get user", Description = "Returns 1 user from the database", Tags = new[] { "Users" })]
         public async Task<IActionResult> GetById(int id)
         {
             if (id == 0)
@@ -39,7 +39,7 @@ namespace WebApplication2.Controllers
             return Ok(o);
         }
         [HttpPost]
-        [SwaggerOperation(Summary = "Create user", Description = "Creates a user and sends it to database", Tags = new[] { "Post" })]
+        [SwaggerOperation(Summary = "Create user", Description = "Creates a user and sends it to database", Tags = new[] { "Users" })]
         public async Task<IActionResult> CreateAsync([FromBody] cREATEuSERModel us)
         {
             if (us == null)
@@ -66,7 +66,7 @@ namespace WebApplication2.Controllers
             return Ok(await _userService.Register(l));
         }
         [HttpPut("{id}")]
-        [SwaggerOperation(Summary = "Change user", Description = "Changes email of a specified user from the database", Tags = new[] { "Put" })]
+        [SwaggerOperation(Summary = "Change user", Description = "Changes email of a specified user from the database", Tags = new[] { "Users" })]
         public async Task<IActionResult> UpdateAsync(int id, [FromBody] UpdateModel model)
         {
             if (model == null || id == 0)
@@ -82,7 +82,7 @@ namespace WebApplication2.Controllers
             return Ok(updated);
         }
         [HttpDelete("{id}")]
-        [SwaggerOperation(Summary = "Deletes a user", Description = "Deletes a specified user from the database", Tags = new[] { "Delete" })]
+        [SwaggerOperation(Summary = "Deletes a user", Description = "Deletes a specified user from the database", Tags = new[] { "Users" })]
         public async Task<IActionResult> DeleteAsync(int id = 0)
         {
             if (id == 0)
