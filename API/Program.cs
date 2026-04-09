@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(c =>
         Version = "v1"
     });
 
-    c.EnableAnnotations(); //  IMPORTANT
+    c.EnableAnnotations(); 
 });
 
 builder.Services.AddCors(option =>

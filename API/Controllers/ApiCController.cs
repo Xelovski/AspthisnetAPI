@@ -96,6 +96,19 @@ namespace WebApplication2.Controllers
                 return NotFound("The user does not exist");
             return Ok(deleted);
         }
+        [HttpGet("isadmin")]
+        [SwaggerOperation(Summary = "are u Admin?", Description = "Tells u if u are admin", Tags = new[] { "Users" })]
+        public async Task<IActionResult> IsAdmin()
+        {
+            var json = System.IO.File.ReadAllText(loggedas);
+            var data = JsonSerializer.Deserialize<object>(json) ?? new List<Item>();
+            if (data.ToString() == "a")
+            {
+                return Ok(true);
+            }
+            return Ok(false);
+            
+        }
 
         /// <summary>
         /// login
