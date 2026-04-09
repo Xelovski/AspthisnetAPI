@@ -23,5 +23,10 @@
     "Id": 5,
     "Username": "WWW",
     "Items": "Soup"
+  },
+  {
+    "Id": 6,
+    "Username": "qweasdhg",
+    "Items": "The\u002Bpicar"
   }
 ]

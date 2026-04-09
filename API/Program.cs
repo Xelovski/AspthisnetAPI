@@ -29,7 +29,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddCors(option =>
 {
     option.AddPolicy("ReactLocalhost", policy => //ReectLocalPain
-        policy.WithOrigins("http://localhost:5173", "https://localhost:5173")
+        policy.AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod()
     );
